@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Category List</h3>
+                <h3 class="card-title">SubCategory List</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -12,22 +12,18 @@
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Image</th>
-                            <th>Category Name</th>
+                            <th>Sub-Category Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       @foreach ($categories as $category)
+                       @foreach ($subCategories as $subCategory)
                        <tr>
                         <td>{{$loop->index+1}}</td>
+                        <td>{{$subCategory->name}}</td>
                         <td>
-                            <img src="{{asset('backend/images/category/'.$category->image)}}" alt="category">
-                        </td>
-                        <td>{{$category->name}}</td>
-                        <td>
-                            <a href="{{url('/admin/category/edit/'.$category->id)}}" class="btn btn-primary">Edit</a>
-                            <a href="{{url('/admin/category/delete/'.$category->id)}}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a>
+                            <a href="" class="btn btn-primary">Edit</a>
+                            <a href="" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                        @endforeach
