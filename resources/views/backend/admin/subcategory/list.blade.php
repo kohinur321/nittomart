@@ -13,6 +13,7 @@
                         <tr>
                             <th>SL</th>
                             <th>Sub-Category Name</th>
+                            <th>Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -21,9 +22,10 @@
                        <tr>
                         <td>{{$loop->index+1}}</td>
                         <td>{{$subCategory->name}}</td>
+                        <td>{{$subCategory->category->name}}</td>
                         <td>
-                            <a href="" class="btn btn-primary">Edit</a>
-                            <a href="" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a>
+                            <a href="{{url('/admin/sub-category/edit/'.$subCategory->id)}}"class="btn btn-primary">Edit</a>
+                            <a href="{{url('/admin/sub-category/delete/'.$subCategory->id)}}" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                        @endforeach

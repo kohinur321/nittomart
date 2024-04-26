@@ -5,6 +5,7 @@ use App\Http\Controllers\Backend\SubCategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use \App\Http\Controllers\Backend\AdminController;
+use App\Http\Controllers\Backend\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,3 +53,12 @@ Route::post('/admin/sub-category/store',[SubCategoryController::class, 'storeSub
 Route::get('/admin/sub-category/delete/{id}',[SubCategoryController::class, 'deleteSubCategory']);
 Route::get('/admin/sub-category/edit/{id}',[SubCategoryController::class, 'editSubCategory']);
 Route::post('/admin/sub-category/update/{id}',[SubCategoryController::class, 'updateSubCategory']);
+
+
+//Product Routes
+Route::get('/admin/product/list',[ProductController::class, 'showProduct']);
+Route::get('/admin/product/create',[ProductController::class, 'createProduct']);
+Route::post('/admin/product/store',[ProductController::class, 'storeProduct']);
+Route::get('/admin/product/delete/{id}',[ProductController::class, 'deleteProduct']);
+Route::get('/admin/product/edit/{id}',[ProductController::class, 'editProduct']);
+Route::post('/admin/product/update/{id}',[ProductController::class, 'updateProduct']);
