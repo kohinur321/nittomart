@@ -2,18 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
     public function index ()
     {
-        return view ('home.index');
+        $hotProducts = Product::where('product_type', 'hot')->orderBy('id', 'desc')->get();
+        $newProducts = Product::where('product_type', 'new')->orderBy('id', 'desc')->get();
+        $regularProducts = Product::where('product_type', 'regular')->orderBy('id', 'desc')->get();
+        $discountProducts = Product::where('product_type', 'discount')->orderBy('id', 'desc')->get();
+        return view ('home.index', compact('hotProducts', 'newProducts', 'regularProducts', 'discountProducts'));
     }
 
-    public function productDetails ()
+    public function productDetails ($slug)
     {
-        return view ('home.product-details');
+        $product = Product::where('slug', $slug)->with('color', 'size', 'galleryImage')->first();
+
+        return view ('home.product-details', compact('product'));
     }
 
      public function viewCart ()
