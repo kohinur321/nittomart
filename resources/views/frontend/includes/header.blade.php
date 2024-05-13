@@ -14,27 +14,46 @@
                 <div class="res-search">
                     <i class="fas fa-search"></i>
                 </div>
+                //@php
+                    //$addtoCart = App\Models\Cart::where('ip_address', request()->ip())->count();
+                //@endphp
                 <div class="header-top-right-item dropdown">
                     <div class="header-top-right-item-link">
                         <span class="icon-outer">
                             <i class="fas fa-cart-plus"></i>
-                            <span class="count-number">1</span>
+
+                            <span class="count-number">{{$addtoCartCount}}</span>
                         </span>
                         Cart
                     </div>
+
                     <div class="cart-items-wrapper">
+                        @php
+                        $totalPrice = 0;
+                        @endphp
+                        @foreach ($cartProducts as $cart)
+                        @php
+                            $totalPrice = $totalPrice + $cart->qty*$cart->price;
+                        @endphp
                         <div class="cart-items-outer">
                             <div class="cart-item-outer">
                                 <a href="{{url('/product/view-cart')}}" class="cart-product-image">
-                                    <img src="{{asset('fontend/assets/images/product.png')}}" alt="product">
+                                    <img src="{{asset('backend/images/product/'.$cart->product->image)}}" alt="product">
                                 </a>
                                 <div class="cart-product-name-price">
                                     <a href="{{url('/product/view-cart')}}" class="product-name">
-                                        Test Product
+                                        {{$cart->product->name}}
                                     </a>
+                                    @if ($cart->product->discount_price == null)
                                     <span class="product-price">
-                                        ৳ 300
+                                        ৳  {{$cart->product->regular_price}}
                                     </span>
+                                    @endif
+                                    @if ($cart->product->discount_price != null)
+                                    <span class="product-price">
+                                        ৳  {{$cart->product->discount_price}}
+                                    </span>
+                                    @endif
                                 </div>
                                 <div class="cart-item-delete">
                                     <a href="#" class="delete-btn">
@@ -43,10 +62,11 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                         <div class="shopping-cart-footer">
                             <div class="shopping-cart-total">
                                 <h4>
-                                    Total <span>৳ 300</span>
+                                    Total <span>৳ {{$totalPrice}}</span>
                                 </h4>
                             </div>
                             <div class="shopping-cart-button">
