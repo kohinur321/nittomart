@@ -30,6 +30,10 @@ Route::get('/shop-products', [HomeController::class, 'shopProduct']);
 Route::get('/return-products', [HomeController::class, 'returnProduct']);
 Route::get('/privecy-policy', [HomeController::class, 'privecy']);
 
+// Add to cart Routes....
+Route::post('/product/addtocart-details/{id}', [HomeController::class, 'addtoCartDetails']);
+Route::get('/product/addtocart/{id}', [HomeController::class, 'addtoCart']);
+
 Auth::routes();
 
 Route::get('/admin/login', [AdminController::class, 'login']);
