@@ -35,7 +35,7 @@
                             <input type="number" name="qty" readonly value="{{$cart->qty}}" min="1" />
                         </td>
                         <td>
-                            <a href="#" class="remove-product">Remove</a>
+                            <a href="{{url('/product/addtocart/delete/'.$cart->id)}}" class="remove-product">Remove</a>
                         </td>
                         <td class="cart-product-total-outer">
                             ৳ {{$cart->qty * $cart->price}}

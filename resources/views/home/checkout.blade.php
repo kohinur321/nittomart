@@ -22,13 +22,13 @@
                                     </div>
                                     <div class="col-md-12 mt-3">
                                         <div style="background: lightgrey;padding: 10px;margin-bottom: 10px;">
-                                            <input type="radio" id="inside_dhaka" name="area" value="80"/>
+                                            <input type="radio" id="inside_dhaka" name="area" value="80" onclick="grandTotalIn()"/>
                                             <label for="inside_dhaka"
                                                 style="font-size: 18px;font-weight: 600;color: #000;">Inside Dhaka (80
                                                 Tk.)</label>
                                         </div>
                                         <div style="background: lightgrey;padding: 10px;">
-                                            <input type="radio" id="outside_dhaka" name="area" value="150"/>
+                                            <input type="radio" id="outside_dhaka" name="area" value="150" onclick="grandTotalOut()"/>
                                             <label for="outside_dhaka"
                                                 style="font-size: 18px;font-weight: 600;color: #000;">Outside Dhaka (150
                                                 Tk.)</label>
@@ -40,49 +40,58 @@
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="checkout-items-wrapper">
+                            @php
+                            $totalPrice = 0;
+                            @endphp
+                            @foreach ($cartProducts as $cart)
+                            @php
+                            $totalPrice = $totalPrice + $cart->qty*$cart->price;
+                            @endphp
                             <div class="checkout-item-outer">
                                 <div class="checkout-item-left">
                                     <div class="checkout-item-image">
-                                        <img src="{{asset('frontend/assets/images/product.png')}}" alt="Image"/>
+                                        <img src="{{asset('backend/images/product/'.$cart->product->image)}}" alt="Image"/>
                                     </div>
                                     <div class="checkout-item-info">
                                         <h6 class="checkout-item-name">
-                                            Test Product
+                                            {{$cart->product->name}}
                                         </h6>
                                         <p class="checkout-item-price">
-                                            300 Tk.
+                                            {{$cart->price}} Tk.
                                         </p>
                                         <span class="checkout-item-count">
-                                            1 item
+                                            {{$cart->qty}}
                                         </span>
                                         <br />
                                         <span class="checkout-item-count">
-                                            Size:
+                                            {{$cart->size}}
                                         </span>
                                         <span class="checkout-item-count">
-                                            Color:
+                                            {{$cart->color}}
                                         </span>
                                         <div class="checkout-product-incre-decre">
                                             <button type="button" title="Decrement" class="qty-decrement-btn">
                                                 <i class="fas fa-minus"></i>
                                             </button>
                                             <input type="number" readonly name="" placeholder="Qty" min="1" style="height: 35px;" value="1">
-                                            <button type="button" title="Increment" class="qty-increment-btn">
+                                           <button type="button" title="Increment" class="qty-increment-btn">
                                                 <i class="fas fa-plus"></i>
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="checkout-item-right">
-                                    <a href="#" class="delete-btn">
+                                    <a href="{{url('/product/addtocart/delete/'.$cart->id)}}" class="delete-btn">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>
                             </div>
+                            @endforeach
                             <div class="sub-total-wrap">
                                 <div class="sub-total-item">
                                      <strong>Sub Total</strong>
-                                    <strong id="subTotal">৳ 300</strong>
+                                    <strong id="subTotal">৳ {{$totalPrice}}</strong>
+                                    <input type="hidden" name="subTotalHidden" id="subTotalHidden" value="{{$totalPrice}}">
                                 </div>
                                 <div class="sub-total-item">
                                     <strong>Delivery charge</strong>
@@ -90,7 +99,7 @@
                                 </div>
                                 <div class="sub-total-item grand-total">
                                      <strong>Grand Total</strong>
-                                     <strong id="grandTotal">৳ 380</strong>
+                                     <strong id="grandTotal">৳ {{$totalPrice}}</strong>
                                 </div>
                             </div>
                             <div class="payment-item-outer">
@@ -119,4 +128,28 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+<script>
+   function grandTotalIn(){
+      var subTotal = parseFloat(document.getElementById('subTotalHidden').value);
+      var charge = parseFloat(document.getElementById('inside_dhaka').value);
+      console.log(subTotal);
+      var grandTotal = subTotal + charge;
+      console.log(grandTotal);
+      document.getElementById('deliveryCharge').innerHTML = charge;
+      document.getElementById('grandTotal').innerHTML = grandTotal;
+   }
+
+   function grandTotalOut(){
+      var subTotal = parseFloat(document.getElementById('subTotalHidden').value);
+      var charge = parseFloat(document.getElementById('outside_dhaka').value);
+      console.log(subTotal);
+      var grandTotal = subTotal + charge;
+      console.log(grandTotal);
+      document.getElementById('deliveryCharge').innerHTML = charge;
+      document.getElementById('grandTotal').innerHTML = grandTotal;
+   }
+</script>
+@endpush
 

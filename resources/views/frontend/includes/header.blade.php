@@ -31,6 +31,9 @@
                         @php
                         $totalPrice = 0;
                         @endphp
+                        @php
+                        $totalPrice = 0;
+                        @endphp
                         @foreach ($cartProducts as $cart)
                         @php
                             $totalPrice = $totalPrice + $cart->qty*$cart->price;
@@ -56,7 +59,7 @@
                                     @endif
                                 </div>
                                 <div class="cart-item-delete">
-                                    <a href="#" class="delete-btn">
+                                    <a href="{{url('/product/addtocart/delete/'.$cart->id)}}" class="delete-btn">
                                         <i class="fas fa-trash-alt"></i>
                                     </a>
                                 </div>

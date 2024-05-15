@@ -21,7 +21,7 @@ class HomeController extends Controller
     public function productDetails ($slug)
     {
         $product = Product::where('slug', $slug)->with('color', 'size', 'galleryImage')->first();
-        
+
         return view ('home.product-details', compact('product'));
     }
 
@@ -124,5 +124,14 @@ class HomeController extends Controller
         toastr()->success('Added to cart!');
         return redirect()->back();
        }
+    }
+
+    public function deleteAddtoCart ($id)
+    {
+        $cartProduct = Cart::find($id);
+        $cartProduct->delete();
+
+       // toastr()->success('Removed from cart!');
+        return redirect()->back();
     }
 }
