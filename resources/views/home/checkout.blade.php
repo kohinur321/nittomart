@@ -1,9 +1,11 @@
 @extends('frontend.includes.master')
 
 @section('content')
+
     <section class="checkout-section">
         <div class="container">
-            <form action="" method="post" class="form-group billing-address-form" enctype="multipart/form-data">
+            <form action="{{url('/confirm-order')}}" method="post" class="form-group billing-address-form" enctype="multipart/form-data">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <div class="checkout-wrapper">
@@ -11,10 +13,10 @@
                                 <h4 class="title">Billing / Shipping Details</h4>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <input type="text" name="name" class="form-control" placeholder="Enter Full Name *"/>
+                                        <input type="text" name="c_name" class="form-control" placeholder="Enter Full Name *"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="phone" class="form-control" placeholder="Phone *"/>
+                                        <input type="text" name="c_phone" class="form-control" placeholder="Phone *"/>
                                     </div>
                                     <div class="col-md-12">
                                         <textarea rows="4" name="address" class="form-control" id="address"
@@ -100,6 +102,7 @@
                                 <div class="sub-total-item grand-total">
                                      <strong>Grand Total</strong>
                                      <strong id="grandTotal">৳ {{$totalPrice}}</strong>
+                                     <input type="hidden" id="inputGrandTotal" name="inputGrandTotal" value="">
                                 </div>
                             </div>
                             <div class="payment-item-outer">
@@ -139,16 +142,17 @@
       console.log(grandTotal);
       document.getElementById('deliveryCharge').innerHTML = charge;
       document.getElementById('grandTotal').innerHTML = grandTotal;
+      document.getElementById('inputGrandTotal').value = grandTotal;
    }
-
    function grandTotalOut(){
       var subTotal = parseFloat(document.getElementById('subTotalHidden').value);
       var charge = parseFloat(document.getElementById('outside_dhaka').value);
-      console.log(subTotal);
+
       var grandTotal = subTotal + charge;
-      console.log(grandTotal);
+
       document.getElementById('deliveryCharge').innerHTML = charge;
       document.getElementById('grandTotal').innerHTML = grandTotal;
+      document.getElementById('inputGrandTotal').value = grandTotal;
    }
 </script>
 @endpush

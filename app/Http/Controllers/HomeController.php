@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Cart;
+use App\Models\Order;
+use App\Models\OrderDetails;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -133,5 +136,57 @@ class HomeController extends Controller
 
        // toastr()->success('Removed from cart!');
         return redirect()->back();
+    }
+
+    //Confirm Order...
+    public function confirmOrder (OrderRequest $request)
+    {
+        $order = new Order();
+
+        $previousOrder = Order::orderBy('id', 'desc')->first(); //10
+
+         if($previousOrder == null){
+            $order->invoiceId = 'MOM-1';
+         }
+
+        if($previousOrder != null){
+            $generateInvoiceId = 'MOM-'.$previousOrder->id+1;
+            $order->invoiceId = $generateInvoiceId ; //MOM-11
+        }
+
+        $order->c_name = $request->c_name;
+        $order->c_phone = $request->c_phone;
+        $order->email = $request->email;
+        $order->address = $request->address;
+        $order->area = $request->area;
+        $order->price = $request->inputGrandTotal;
+
+
+        //Store Info into OrderDetails Table...
+        $cartProducts = Cart::with('product')->where('ip_address', $request->ip())->get();
+        if($cartProducts->isNotEmpty()){
+           $order->save();
+           foreach($cartProducts as $cart){
+            $orderDetails = new OrderDetails();
+
+            $orderDetails->order_id = $order->id;
+            $orderDetails->product_id = $cart->product_id;
+            $orderDetails->qty = $cart->qty;
+            $orderDetails->price = $cart->price;
+            $orderDetails->size = $cart->size;
+            $orderDetails->color = $cart->color;
+
+            $orderDetails->save();
+
+           }
+       }
+
+       else{
+        toastr()->warning('No products in your cart!!');
+        return redirect('/');
+       }
+
+       toastr()->success('Order is placed successfully!');
+       return redirect('/');
     }
 }
