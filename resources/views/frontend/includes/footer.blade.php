@@ -49,7 +49,7 @@
                                     Address:
                                 </p>
                                 <p class="footer__contact-info-list-item-value">
-                                    Uttara, Dhaka
+                                   {!!$frontendSettings->address!!}
                                 </p>
                             </li>
                             <li class="footer__contact-info-list-item">
@@ -57,7 +57,7 @@
                                     Phone:
                                 </p>
                                 <a href="tel:0123456857" class="footer__contact-info-list-item-value">
-                                    0123456857
+                                    {{$frontendSettings->phone}}
                                 </a>
                             </li>
                             <li class="footer__contact-info-list-item">
@@ -65,7 +65,7 @@
                                     Email:
                                 </p>
                                 <a href="mailto:info@gmail.com" class="footer__contact-info-list-item-value">
-                                    info@gmail.com
+                                    {{$frontendSettings->email}}
                                 </a>
                             </li>
                         </ul>
@@ -107,22 +107,22 @@
                         </h4>
                         <ul class="footer__social-list">
                             <li class="footer__social-list-item">
-                                <a href="#" class="footer__social-list-item-lisk">
+                                <a href="{{$frontendSettings->facebook}}" target="_blank" class="footer__social-list-item-lisk">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                             </li>
                             <li class="footer__social-list-item">
-                                <a href="#" class="footer__social-list-item-lisk">
+                                <a href="{{$frontendSettings->twitter}}" target="_blank" class="footer__social-list-item-lisk">
                                     <i class="fab fa-twitter"></i>
                                 </a>
                             </li>
                             <li class="footer__social-list-item">
-                                <a href="#" class="footer__social-list-item-lisk">
+                                <a href="{{$frontendSettings->instagram}}" target="_blank" class="footer__social-list-item-lisk">
                                     <i class="fab fa-instagram"></i>
                                 </a>
                             </li>
                             <li class="footer__social-list-item">
-                                <a href="#" class="footer__social-list-item-lisk">
+                                <a href="{{{{$frontendSettings->youtube}}}}" target="_blank" class="footer__social-list-item-lisk">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </li>

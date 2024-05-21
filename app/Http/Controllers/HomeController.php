@@ -187,6 +187,11 @@ class HomeController extends Controller
        }
 
        toastr()->success('Order is placed successfully!');
-       return redirect('/');
+       return redirect('order-confirmed/'.$generateInvoiceId);
+    }
+
+    public function thankyouMessage ($invoiceId)
+    {
+        return view('home.thankyou', compact('invoiceId'));
     }
 }
