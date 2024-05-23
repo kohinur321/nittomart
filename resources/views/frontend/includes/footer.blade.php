@@ -122,7 +122,7 @@
                                 </a>
                             </li>
                             <li class="footer__social-list-item">
-                                <a href="{{{{$frontendSettings->youtube}}}}" target="_blank" class="footer__social-list-item-lisk">
+                                <a href="{{$frontendSettings->youtube}}" target="_blank" class="footer__social-list-item-lisk">
                                     <i class="fab fa-youtube"></i>
                                 </a>
                             </li>
