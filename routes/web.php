@@ -87,6 +87,9 @@ Route::get('/admin/order/status-pending/{id}',[OrderController::class, 'statusPe
 Route::get('/admin/order/status-confirmed/{id}',[OrderController::class, 'statusConfirmed']);
 Route::get('/admin/order/status-delivered/{id}',[OrderController::class, 'statusDelivered']);
 Route::get('/admin/order/status-cancelled/{id}',[OrderController::class, 'statusCancelled']);
+Route::get('/admin/order/details/{id}',[OrderController::class, 'orderDetails']);
+Route::post('/admin/order/update/{id}',[OrderController::class, 'orderUpdate']);
+
 
 //Settings...
 Route::get('/admin/general-setting', [SettingController::class, 'showSettings']);

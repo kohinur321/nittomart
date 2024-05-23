@@ -107,8 +107,17 @@ class OrderController extends Controller
         return redirect()->back();
        }
       }
-
     }
   }
 
+  public function orderDetails ($id)
+  {
+    if(Auth::user()){
+        if(Auth::user()->role ==1){
+          $order = Order::where('id', $id)->with('orderDetails')->first();
+         // dd($order);
+          return view('backend.admin.orders.details', compact('order'));
+        }
+    }
+  }
 }
