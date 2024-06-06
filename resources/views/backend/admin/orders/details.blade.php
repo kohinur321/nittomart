@@ -1,5 +1,6 @@
-@extends('backend.master')
 
+
+@extends('backend.master')
 @section('content')
     <div class="container-fluid">
         <div class="card">
@@ -9,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form action="" method="" class="form-control">
+                <form action="{{url('/admin/order/update/'.$order->id)}}" method="POST" class="form-control">
                     @csrf
                    <div class="row">
                     <div class="col-md-6 card">
@@ -50,16 +51,26 @@
                             <label for="courier_name">Courier</label>
                             <select name="courier_name" id="courier_name" class="form-control" onchange="otherCourier()">
                                 <option selected disabled>Select Courier</option>
-                                <option value="steadfast">Steadfast</option>
-                                <option value="others">Others</option>
+                                <option value="steadfast"@if ($order->courier_name == "steadfast")
+                                    selected
+                                @endif>Steadfast</option>
+                                <option value="others" @if ($order->courier_name != "steadfast" && $order->courier_name != null)
+                                    selected
+                                @endif>Others</option>
                             </select>
                         </div>
 
+                        @if ($order->courier_name != "steadfast" && $order->courier_name != null)
+                        <div class="mt-3" id="others_courier">
+                            <label for="others_courier">Others Courier</label>
+                           <textarea name="others_courier" class="form-control">{{$order->courier_name}}</textarea>
+                        </div>
+                        @else
                         <div class="mt-3" style="display: none" id="others_courier">
                             <label for="others_courier">Others Courier</label>
                            <textarea name="others_courier" class="form-control">{{$order->courier_name}}</textarea>
                         </div>
-
+                         @endif
                      </div>
                      <div class="col-md-6 card">
 

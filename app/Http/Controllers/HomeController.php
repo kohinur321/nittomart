@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Models\Cart;
+use App\Models\Category;
+use App\Models\HomeBanner;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\PrivacyPolicy;
 use App\Models\Product;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,7 +22,8 @@ class HomeController extends Controller
         $newProducts = Product::where('product_type', 'new')->orderBy('id', 'desc')->get();
         $regularProducts = Product::where('product_type', 'regular')->orderBy('id', 'desc')->get();
         $discountProducts = Product::where('product_type', 'discount')->orderBy('id', 'desc')->get();
-        return view ('home.index', compact('hotProducts', 'newProducts', 'regularProducts', 'discountProducts'));
+        $homeBanner = HomeBanner::first();
+        return view ('home.index', compact('hotProducts', 'newProducts', 'regularProducts', 'discountProducts', 'homeBanner'));
     }
 
     public function productDetails ($slug)
@@ -38,9 +43,21 @@ class HomeController extends Controller
         return view('home.checkout');
      }
 
-     public function shopProduct ()
+     public function shopProduct (Request $request)
      {
-        return view('home.shop');
+        if(isset($request->categoryId)){
+            $type = 'category';
+           $categoryProducts = Category::where('id', $request->categoryId)->with('product')->first();
+           return view('home.shop', compact('categoryProducts', 'type'));
+        }
+        if(isset($request->subCategoryId)){
+            $type = 'subCategory';
+            $subCategoryProducts = SubCategory::where('id', $request->subCategoryId)->with('product')->first();
+            return view('home.shop', compact('subCategoryProducts', 'type'));
+        }
+        $type = 'normal';
+        $products = Product::orderBy('id', 'desc')->get();
+        return view('home.shop', compact('products', 'type'));
      }
 
      public function returnProduct ()
@@ -194,4 +211,36 @@ class HomeController extends Controller
     {
         return view('home.thankyou', compact('invoiceId'));
     }
+
+    //Category Products...
+    public function categoryProducts ($slug)
+    {
+        $categoryProducts = Category::where('slug', $slug)->with('product')->first();
+        return view('home.category-products', compact('categoryProducts'));
+    }
+
+    public function subCategoryProducts ($slug)
+    {
+        $subCategoryProducts = SubCategory::where('slug', $slug)->with('product')->first();
+         return view('home.sub-category-products', compact('subCategoryProducts'));
+    }
+
+    //Search Products...
+    public function searchProducts (Request $request)
+    {
+        if(isset($request->search)){
+            $products = Product::where('name', 'LIKE', '%'.$request->search.'%')->get();
+            return view ('home.search-products', compact('products'));
+        }
+    }
+
+    //Inner Pages...
+    public function privacyPolicy ()
+    {
+        $privacyPolicy = PrivacyPolicy::first();
+        return view('home.privacy-policy', compact('privacyPolicy'));
+    }
+
+   
 }
+

@@ -41,6 +41,11 @@ Route::get('/product/addtocart/delete/{id}', [HomeController::class, 'deleteAddt
 Route::post('/confirm-order', [HomeController::class, 'confirmOrder']);
 Route::get('/order-confirmed/{invoiceId}', [HomeController::class, 'thankyouMessage']);
 
+//Category Products...
+Route::get('category-products/{slug}', [HomeController::class, 'categoryProducts']);
+Route::get('sub-category-products/{slug}', [HomeController::class, 'subCategoryProducts']);
+
+
 Auth::routes();
 
 Route::get('/admin/login', [AdminController::class, 'login']);
@@ -55,6 +60,13 @@ Route::post('/admin/category/store',[CategoryController::class, 'storeCategory']
 Route::get('/admin/category/delete/{id}',[CategoryController::class, 'deleteCategory']);
 Route::get('/admin/category/edit/{id}',[CategoryController::class, 'editCategory']);
 Route::post('/admin/category/update/{id}',[CategoryController::class, 'updateCategory']);
+
+//Search Products...
+Route::get('/search-products', [HomeController::class, 'searchProducts']);
+
+
+//Inner Pages
+Route::get('/privacy-policy', [HomeController::class, 'privacyPolicy']);
 
 
 //SubCategory Routes
@@ -94,3 +106,13 @@ Route::post('/admin/order/update/{id}',[OrderController::class, 'orderUpdate']);
 //Settings...
 Route::get('/admin/general-setting', [SettingController::class, 'showSettings']);
 Route::post('/admin/general-setting/update', [SettingController::class, 'updateSettings']);
+Route::get('/admin/home-banner', [SettingController::class, 'showHomeBanner']);
+Route::post('/admin/home-banner/update', [SettingController::class, 'updateHomeBanner']);
+Route::get('/admin/privacy-policy', [SettingController::class, 'showPrivacyPolicy']);
+Route::post('/admin/privacy-policy/update', [SettingController::class, 'updatePrivacyPolicy']);
+
+
+
+
+
+
