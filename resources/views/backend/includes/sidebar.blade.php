@@ -11,7 +11,8 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
+           @if (auth()->user()->role == 1)
+           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
@@ -80,49 +81,72 @@
               </li>
             </ul>
           </li>
-
+           @endif
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>
+                    Orders
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{url('/admin/orders/all-orders')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p> All Orders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('/admin/orders/pending-orders')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Pending Orders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('/admin/orders/confirmed-orders')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Confirmed Orders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('/admin/orders/delivered-orders')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Delivered Orders</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{url('/admin/orders/cancelled-orders')}}" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Cancelled Orders</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+          @if (auth()->user()->role == 1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
               <p>
-                Orders
+                 Employee
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{url('/admin/orders/all-orders')}}" class="nav-link">
+                <a href="{{url('/admin/employee-list')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p> All Orders</p>
+                  <p>List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{url('/admin/orders/pending-orders')}}" class="nav-link">
+                <a href="{{url('/admin/employee-create')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pending Orders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/admin/orders/confirmed-orders')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Confirmed Orders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/admin/orders/delivered-orders')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Delivered Orders</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('/admin/orders/cancelled-orders')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Cancelled Orders</p>
+                  <p>Add New</p>
                 </a>
               </li>
             </ul>
           </li>
-
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-book"></i>
@@ -152,6 +176,31 @@
               </li>
             </ul>
           </li>
+          @endif
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                 Authentication
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{url('/admin/logout')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Logout</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin/credentials')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Credentials</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

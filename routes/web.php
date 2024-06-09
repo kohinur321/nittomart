@@ -111,8 +111,15 @@ Route::post('/admin/home-banner/update', [SettingController::class, 'updateHomeB
 Route::get('/admin/privacy-policy', [SettingController::class, 'showPrivacyPolicy']);
 Route::post('/admin/privacy-policy/update', [SettingController::class, 'updatePrivacyPolicy']);
 
+//Authentication...
+Route::get('/admin/logout', [SettingController::class, 'adminLogout']);
+Route::get('/admin/credentials', [SettingController::class, 'adminCredentials']);
+Route::post('/admin/credentials/update', [SettingController::class, 'adminCredentialsUpdate']);
 
-
-
-
+//Employee
+Route::get('/admin/employee-list', [AdminController::class, 'employeeList']);
+Route::get('/admin/employee-create', [AdminController::class, 'employeeCreate']);
+Route::post('/admin/employee-store', [AdminController::class, 'employeeStore']);
+Route::get('/admin/employee-edit/{id}', [AdminController::class, 'employeeEdit']);
+Route::post('/admin/employee-update/{id}', [AdminController::class, 'employeeUpdate']);
 

@@ -33,7 +33,7 @@ class CategoryController extends Controller
                  $request->image->move('backend/images/category/' ,$imageName);
 
                  $category->image = $imageName;
-                }
+            }
 
                 $category->save();
                 toastr()->success('Successfully Created!');
