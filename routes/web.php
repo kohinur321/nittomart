@@ -91,6 +91,7 @@ Route::post('/admin/product/update/{id}',[ProductController::class, 'updateProdu
 Route::get('/admin/orders/edit/{id}',[OrderController::class, 'editOrders']);
 Route::post('/admin/orders/update/{id}',[OrderController::class, 'updateOrders']);
 Route::get('/admin/orders/all-orders',[OrderController::class, 'showAllOrders']);
+Route::get('/admin/orders/today-orders',[OrderController::class, 'showTodayOrders']);
 Route::get('/admin/orders/pending-orders',[OrderController::class, 'showPendingOrders']);
 Route::get('/admin/orders/confirmed-orders',[OrderController::class, 'showConfirmedOrders']);
 Route::get('/admin/orders/delivered-orders',[OrderController::class, 'showDeliveredOrders']);

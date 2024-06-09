@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\User;
-
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,13 @@ class AdminController extends Controller
         {
             if(Auth::user()){
                 if(Auth::user()->role ==1 || Auth::user()->role ==2){
-                    return view ('backend.admin.dashboard');
+                    $todayDate = Carbon::today();
+                    $totalOrders = Order::count();
+                    $todayOrders = Order::whereDate('created_at', $todayDate)->count();
+                    $pendingOrders = Order::where('status', 'pending')->count();
+                    $cancelledOrders = Order::where('status', 'cancelled')->count();
+                    $deliveredOrders = Order::where('status', 'delivered')->count();
+                    return view ('backend.admin.dashboard', compact('totalOrders', 'todayOrders', 'pendingOrders', 'cancelledOrders', 'deliveredOrders'));
                 }
             }
 
